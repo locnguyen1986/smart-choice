@@ -10,25 +10,23 @@ services:
     ports:
       - "2181:2181"
     volumes:
-      - ./zk-single-kafka-single/zookeeper/data:/data
-      - ./zk-single-kafka-single/zookeeper/datalog:/datalog
+      - ./kafka/zookeeper/data:/data
+      - ./kafka-data/zookeeper/datalog:/datalog
   kafka:
     image: confluentinc/cp-kafka:5.4.1
     ports:
       - "9092:9092"
+      - "9093:9093"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_BROKER_ID: 1
-      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: INTERNAL://:9092,EXTERNAL://:9093
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://:9092,EXTERNAL://:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
     volumes:
-      - ./zk-single-kafka-single/kafka/data:/var/lib/kafka/data
+      - ./kafka-data/kafka/data:/var/lib/kafka/data
     depends_on:
       - zookeeper
-      - redis
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -40,5 +38,4 @@ services:
     volumes:
       - ./data/db:/data/db
 volumes:
-  zk-single-kafka-single:
-  consumer-service:
+  kafka-data: ~/kafka
