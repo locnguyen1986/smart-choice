@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: smart-choice-config-server
+  profiles:
+    include: composite
+  cloud:
+    config:
+      server:
+        composite:
+          - type: git
+            uri: https://github.com/locnguyen1986/smart-choice-config
+        bootstrap: true

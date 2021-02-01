@@ -1,0 +1,36 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: smart-choice-gateway-server
+  cloud:
+    config:
+      uri: http://localhost:8081
+      fail-fast: true
+      retry:
+        initial-interval: 60000
+        multiplier: 1.5
+        max-attempts: 1000
+        max-interval: 5000
+hystrix:
+  command:
+    default:
+      execution:
+        iso lation:
+          thread:
+            timeoutInMilliseconds: 30000
+ribbon:
+  ReadTimeout: 60000
+  connection-timeout: 3000
+  eureka:
+    enabled: true
+zuul:
+  ignoredServices: '*'
+  host:
+    time-to-live: -1
+    connect-timeout-millis: 5000
+    max-per-route-connections: 10000
+    max-total-connections: 5000
+    socket-timeout-millis: 60000
+  semaphore:
+    max-semaphores: 500

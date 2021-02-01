@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: smart-choice-config-server
+  profiles:
+    include: composite
+  cloud:
+    config:
+      server:
+        composite:
+          - type: native
+            search-locations: classpath:/config-repo
+        bootstrap: true

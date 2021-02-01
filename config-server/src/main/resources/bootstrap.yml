@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: smart-choice-config-server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
+server:
+  port: 8081

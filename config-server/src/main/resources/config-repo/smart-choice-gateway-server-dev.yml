@@ -1,0 +1,6 @@
+spring:
+  devtools:
+    restart:
+      enabled: true
+application:
+  description: Gateway Server Dev Application - Remote Native Configurations

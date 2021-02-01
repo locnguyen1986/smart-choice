@@ -1,0 +1,6 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+application:
+  description: Product Server Dev Application - Remote Native Configurations

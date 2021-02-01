@@ -1,0 +1,6 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+application:
+  description: Data Consumer Server Prod Application - Remote Native Configurations

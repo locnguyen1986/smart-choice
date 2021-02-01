@@ -1,0 +1,6 @@
+spring:
+  devtools:
+    restart:
+      enabled: true
+application:
+  description: Gateway Server Prod Application - Remote Native Configurations

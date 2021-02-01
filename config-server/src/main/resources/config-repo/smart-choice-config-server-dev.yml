@@ -1,0 +1,8 @@
+spring:
+  devtools:
+    restart:
+      enabled: true
+  redis:
+    host: localhost:6379
+application:
+  description: Config Server Dev Application - Remote Native Configurations

@@ -1,0 +1,13 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
+  endpoint:
+    health:
+      show-details: always
+#Eureka Naming Server Configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/

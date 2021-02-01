@@ -1,0 +1,6 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+application:
+  description: Config Server Production Application - Remote Native Config
