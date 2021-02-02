@@ -37,5 +37,109 @@ services:
       - 27017:27017
     volumes:
       - ./data/db:/data/db
+  discovery-server:
+    image: discovery-server
+    container_name: discovery-server
+    ports:
+      - "8082:8082"   
+    depends_on:
+      - kafka  
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+  config-server:
+    image: config-server
+    container_name: config-server
+    ports:
+      - "8081:8081" 
+    depends_on:
+      - discovery-server    
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+  gateway-server:
+    image: gateway-server
+    container_name: gateway-server
+    ports:
+      - "8080:8080"    
+    depends_on:
+      - discovery-server    
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+  product-server:
+    image: product-server
+    container_name: product-server
+    ports:
+      - "8091:8091" 
+    environment:
+      SPRING_PROFILES_ACTIVE: docker 
+    depends_on:
+      - discovery-server 
+      - redis
+  pricing-server:
+    image: pricing-server
+    container_name: pricing-server
+    ports:
+      - "8092:8092"   
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+    depends_on:
+      - discovery-server   
+      - redis    
+  data-consumer-server:
+    image: data-consumer-server
+    container_name: data-consumer-server
+    ports:
+      - "8093:8093"   
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+    depends_on:
+      - discovery-server  
+      - redis    
+  search-consumer-server:
+    image: search-consumer-server
+    container_name: search-consumer-server
+    ports:
+      - "8094:8094" 
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+    depends_on:
+      - discovery-server     
+      - redis   
+  search-server:
+    image: search-server
+    container_name: search-server
+    ports:
+      - "8095:8095"  
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+    depends_on:
+      - discovery-server  
+      - redis  
+  suggestion-consumer-server:
+    image: suggestion-consumer-server
+    container_name: suggestion-consumer-server
+    ports:
+      - "8096:8096"     
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+    depends_on:
+      - discovery-server  
+  suggestion-server:
+    image: suggestion-server
+    container_name: suggestion-server
+    ports:
+      - "8097:8097"    
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+    depends_on:
+      - discovery-server       
+  image-processor-server:
+    image: image-processor-server
+    container_name: image-processor-server
+    ports:
+      - "8098:8098"  
+    environment:
+      SPRING_PROFILES_ACTIVE: docker       
+    depends_on:
+      - discovery-server       
 volumes:
   kafka-data: ~/kafka
